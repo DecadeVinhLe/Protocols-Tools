@@ -1,0 +1,82 @@
+- knoweldge of desktops, domain(AD server) email server, file server, print server
+  
+- prepare the laptop, image, tracking tickets, itil concepts (request v/s incident, problem , change, priority of tickets based on(urgency and impact)
+- install/uninstall any software
+- how to update windows os
+- how to update antivirus, firewall
+- adding machine to the domain.
+- there are two main groups - local/standard user, admin user.
+- if you are a desktop we should belong to admin user
+- another user remote desktop group. we should be part of that group to use RDP connection. 
+- gp update command, regedit, userprofile backup/restore , now a days stored in cloud (onedrive)
+- how to elevate to admin user remotely.
+- how to create a machine and image. 
+
+messaging
+- how to use outlook how to configure, how to troubhelshoot,
+- outlook calendar, messaging client, how do you setup a mail box
+- how do you setup a shared calendar, shared resource, increase the size of the mailbox
+-
+
+MS teams or skype or Zoom 
+- how to use this share screens, make video calls.
+- how to deal with printer issues, may printers , install printers on machine.
+- add the user to the printer server. unless you are added to the printer you cannot print.
+- in companies unless you tap your access card you cannot print so access card needs to be added to print server
+
+software
+- adobe professional : how to setup signatures in adobe ?
+-digitally signing / Docusign for documents signature etc.
+- xls , power point , 
+- troubleshooting crashing, not projecting ppt, cannot convert word to pdf.
+- plugin even though it is on not showing , needs regedit knowledge , and plugin troubleshooting. 
+
+
+Tool to connect remotely
+- rdp, sccm, zoom, team viewer good companies
+- sccm for patching , sccm for remote control, invenotry management rdp remote loging.
+- sharepoint admin , mail server admin access
+- different uses mobile, laptop desktop remote login is same and fixing is same.
+
+
+how to troubleshoot browser
+how to unlock and reset ad password
+any user we have to reset the password, unlock the passwords reset the pasword
+self service, people can unlock themselves , we help them.
+networking basic commands for troubleshooting 
+VPN /RSA token , Zscaler troubleshooting 
+
+imaging tools, acronis, ghost, are used where less machines, sccm is used large enterprise for  image & patching software
+different images are stored for different use case or dept , knowledge of imaging or boot from network 
+how to share/grant NTFS permissons. how to share your file etc.
+
+
+Ticketing system a deskop support involves, windows server, messaging, imaging,
+server, little bit , networking, 
+
+
+windows server 
+admin etc is needed. ad knowlege is needed. should be familiar with the systems
+of ad is needed. 
+
+
+
+weneed to know ad, remote control, eschange email, etc.
+knowledge of cloud , dns, dhcp , system administrator, windows server, group policies set, dfg set policies set machines or user level. 
+
+active director or server. 
+
+links
+https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview
+
+
+ticketing :  remedy , service now , 
+
+incident v/s request                   , problem , change , 
+
+choose CI (configuration item): laptop ,  SAP , ADP, etc
+
+Metrics : 
+avg. time to close, 
+first call resolution , 
+time to respond. 
