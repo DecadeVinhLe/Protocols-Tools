@@ -1,5 +1,6 @@
 import ipaddress
 import os
+import socket
 import struct
 import sys
 
@@ -41,54 +42,48 @@ class ICMP:
         self.id = header[3]
         self.seq = header[4]
         
-    def sniff(host):
-    # create a raw socket bin to public interface
-     if os.name == "nt":
-        socket_protocol = socket.IPPROTO_IP
-     else:
-        socket_protocol = socket.IPPROTO_ICMP
-        
-     sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket_protocol)     
-     sniffer.bind((host, 0))
-     sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1) 
-    
-     if os.name == 'nt':
-        sniffer.ioctl(socket.SIO_RCVALL,socket.RCVALL_ON) 
-        
-        try:
-            while True:
-                # read a package
-                raw_buffer = sniffer.recvfrom(65535)[0]
-                #create an IP header from the first 20 bytes
-                
-                ip_header = IP(raw_buffer[0:20])
-                #if it's ICMP
-                if ip_header.protocol == "ICMP":
+def sniff(host):
+  # create a raw socket bin to public interface
+  socket_protocol = socket.IPPROTO_IP if os.name == "nt" else socket.IPPROTO_ICMP
+  sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket_protocol)
+  sniffer.bind((host, 0))
+  sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1) 
+
+  if os.name == 'nt':
+      sniffer.ioctl(socket.SIO_RCVALL,socket.RCVALL_ON) 
+
+  try:
+    while True:
+      # read a package
+      raw_buffer = sniffer.recvfrom(65535)[0]
+      #create an IP header from the first 20 bytes
+
+      ip_header = IP(raw_buffer[:20])
+      if ip_header.protocol == "ICMP":
                 #print the detected protocol and hosts
-                 print('Protocol: %s %s -> %s' % (
-                    ip_header.protocol,
-                    ip_header.src_address,
-                    ip_header.dst_address
-                ))        
-                 print(f'Version: {ip_header.ver}')
-                 print(f'Header Length: {ip_header.ihl} TTL:{ip_header.ttl}')
-                 
-                 # calculate ICMP package starts
-                 offset = ip_header.ihl * 4
-                 buf = raw_buffert[offset:offset + 8]
-                 #create new ICMP 
-                 icmp_header = ICMP(buf)
-                 print('ICMP -> Type: %s Code: %s \n' % (icmp_header.type, icmp_header.code))
-                
-        except KeyboardInterrupt:
-            # turn off promicious mode
-            if os.name == 'nt':
-                sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
-                sys.exit()
+        print(
+            f'Protocol: {ip_header.protocol} {ip_header.src_address} -> {ip_header.dst_address}'
+        )
+        print(f'Version: {ip_header.ver}')
+        print(f'Header Length: {ip_header.ihl} TTL:{ip_header.ttl}')
+
+        # calculate ICMP package starts
+        offset = ip_header.ihl * 4
+        buf = raw_buffer[offset:offset + 8]
+        #create new ICMP 
+        icmp_header = ICMP(buf)
+        print('ICMP -> Type: %s Code: %s \n' % (icmp_header.type, icmp_header.code))
+
+  except KeyboardInterrupt:
+      # turn off promicious mode
+      if os.name == 'nt':
+          sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
+           
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 :
         host = sys.argv[1]
+        sys.exit()
     else: 
-        host = '192.168.1.203'
+        host = '192.168.150.128'
     sniff(host)
